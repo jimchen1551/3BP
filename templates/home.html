@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{{url_for('static', filename='bootstrap.min.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
+    <script src="{{url_for('static', filename='jquery.min.js')}}"></script>
+    <script src="{{url_for('static', filename='bootstrap.min.js')}}"></script>
+    <title>Prediction for WCH/MH</title>
+    <style type="text/css">
+        body {
+            background-color:#F5F7FA;
+            margin-left: 8%;
+        }
+        .container{
+        width:100vw; height: 100vh;
+        display: grid;
+        justify-content: normal;
+        grid-template-columns: 30% 70%;
+        grid-template-rows: 90% 10%;
+        grid-template-areas: 
+        "tab-content main"
+        "footer      footer"}
+        .footer{grid-area: footer;}
+        .tab-content{grid-area: tab-content;}
+        .main{grid-area: main;}
+    </style>
+  </head>
+  <body>
+    <script>
+        var myFunc = function() {
+            if ('{{ info }}')
+            {
+                alert('{{ info }}')
+            };
+        }
+        window.onload = function() {
+            setTimeout(myFunc, 500);
+        }
+    </script>
+   <nav class="nav navbar-light navbar-fixed-top" style="background-color: #333333">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav">
+                <li class="nav-item"><a class="nav-link" style="color: #FFFFFF" href="{{ url_for('home') }}">Home</a></li>
+                <li class="nav-item"><a class="nav-link"  style="color: #FFFFFF" href="{{ url_for('show_result') }}">Result</a></li>
+                {% if current_user.is_authenticated %}
+                <li class="nav-item"><a class="nav-link"  style="color: #FFFFFF" href="{{ url_for('logout') }}">Logout</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav> 
+    <div class="container">
+        <div class="tab-content">
+            <div id="home" class="tab-pane fade in active">
+                <br><br><br><br>
+                <h3>Prediction for WCH/MH</h3>
+                <br>
+                <form action="{{ url_for('predict')}}" method="post">
+                    <h4>Patient Information</h4>
+                    <div>
+                        <label class="col-form-label">&nbsp;&nbsp;&nbsp;ID:</label>
+                        <input type="number" id="id" name="id" required="required" placeholder="Patient ID"></input>
+                    </div>
+                    <div>
+                        <label class="col-form-label">&nbsp;&nbsp;&nbsp;Age:</label>
+                        <input type="number" id="age" name="age" required="required" placeholder="Age"></input>
+                    </div>
+                    <div>
+                        <label class="col-form-label">&nbsp;&nbsp;&nbsp;Gender:</label>
+                        <select id="gender" name="gender" required="required">
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="col-form-label">&nbsp;&nbsp;&nbsp;Height (cm):</label>
+                        <input type="number" id="height" name="height" step="0.1" required="required" placeholder="Height in cm"></input>
+                    </div>
+                    <div>
+                        <label class="col-form-label">&nbsp;&nbsp;&nbsp;Body Weight (kg):</label>
+                        <input type="number" id="bw" name="bw" step="0.1" required="required" placeholder="Body Weight in kg"></input>
+                    </div>
+                    <br>
+
+                    <h4>Blood Pressure and Heart Rate</h4>
+                    <div>
+                        <label class="col-form-label">&nbsp;&nbsp;&nbsp;SBP1:</label>
+                        <input type="number" id="sbp1" name="sbp1" required="required" placeholder="SBP1"></input>
+                    </div>
+                    <div>
+                        <label class="col-form-label">&nbsp;&nbsp;&nbsp;DBP1:</label>
+                        <input type="number" id="dbp1" name="dbp1" required="required" placeholder="DBP1"></input>
+                    </div>
+                    <div>
+                        <label class="col-form-label">&nbsp;&nbsp;&nbsp;HR1:</label>
+                        <input type="number" id="hr1" name="hr1" required="required" placeholder="HR1"></input>
+                    </div>
+
+                    <div>
+                        <label class="col-form-label">&nbsp;&nbsp;&nbsp;SBP2:</label>
+                        <input type="number" id="sbp2" name="sbp2" required="required" placeholder="SBP2"></input>
+                    </div>
+                    <div>
+                        <label class="col-form-label">&nbsp;&nbsp;&nbsp;DBP2:</label>
+                        <input type="number" id="dbp2" name="dbp2" required="required" placeholder="DBP2"></input>
+                    </div>
+                    <div>
+                        <label class="col-form-label">&nbsp;&nbsp;&nbsp;HR2:</label>
+                        <input type="number" id="hr2" name="hr2" required="required" placeholder="HR2"></input>
+                    </div>
+
+                    <div>
+                        <label class="col-form-label">&nbsp;&nbsp;&nbsp;SBP3:</label>
+                        <input type="number" id="sbp3" name="sbp3" required="required" placeholder="SBP3"></input>
+                    </div>
+                    <div>
+                        <label class="col-form-label">&nbsp;&nbsp;&nbsp;DBP3:</label>
+                        <input type="number" id="dbp3" name="dbp3" required="required" placeholder="DBP3"></input>
+                    </div>
+                    <div>
+                        <label class="col-form-label">&nbsp;&nbsp;&nbsp;HR3:</label>
+                        <input type="number" id="hr3" name="hr3" required="required" placeholder="HR3"></input>
+                    </div>
+                    <br>
+
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-dark mb-3" style="background-color: #545455;color:#ffffff;padding: 32px 64px;position:relative;">Predict Value!</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+  </body>
+</html>

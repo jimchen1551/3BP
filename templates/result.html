@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{{ url_for('static', filename='bootstrap.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+    <title>WCH Prediction - Results</title>
+    <style type="text/css">
+        body {
+            background-color: #F5F7FA;
+            width: 100%;
+            height: 100%;
+        }
+        table {
+            font-size: 12pt;
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #333333;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        a {
+            text-decoration: none;
+            color: #ffffff;
+        }
+        .btn {
+            padding: 8px 16px;
+            font-size: 12pt;
+        }
+        .btn-dark a {
+            color: #ffffff;
+        }
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+    </style>
+  </head>
+  <body>
+    <nav class="nav navbar-light navbar-fixed-top" style="background-color: #333333;">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav">
+                <li class="nav-item"><a class="nav-link" style="color: #FFFFFF" href="{{ url_for('home') }}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" style="color: #FFFFFF" href="{{ url_for('show_result') }}">Result</a></li>
+                {% if current_user.is_authenticated %}
+                <li class="nav-item"><a class="nav-link" style="color: #FFFFFF" href="{{ url_for('logout') }}">Logout</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    <br><br><br><br>
+    <div class="container-fluid" style="display: flex; justify-content: center; width: 100%;">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Index</th>
+                    <th>ID</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Height</th>
+                    <th>BW</th>
+                    <th>SBP1</th>
+                    <th>DBP1</th>
+                    <th>HR1</th>
+                    <th>SBP2</th>
+                    <th>DBP2</th>
+                    <th>HR2</th>
+                    <th>SBP3</th>
+                    <th>DBP3</th>
+                    <th>HR3</th>
+                    <th>Prob(WCH)</th>
+                    <th>Class(WCH)</th>
+                    <th>Prob(MH)</th>
+                    <th>Class(MH)</th>
+                    <th>DateTime</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in databases %}
+                <tr>
+                    <td>{{ loop.index }}</td> <!-- Index based on the loop -->
+                    <td>{{ record.id_ }}</td>
+                    <td>{{ record.age }}</td> <!-- Assuming age is added in the database -->
+                    <td>{{ record.gender }}</td> <!-- Assuming gender is added in the database -->
+                    <td>{{ record.height }}</td> <!-- Assuming height is added in the database -->
+                    <td>{{ record.bw }}</td> <!-- Assuming body weight is added in the database -->
+                    <td>{{ record.sbp1 }}</td> <!-- Assuming SBP1 is added in the database -->
+                    <td>{{ record.dbp1 }}</td> <!-- Assuming DBP1 is added in the database -->
+                    <td>{{ record.hr1 }}</td> <!-- Assuming HR1 is added in the database -->
+                    <td>{{ record.sbp2 }}</td> <!-- Assuming SBP2 is added in the database -->
+                    <td>{{ record.dbp2 }}</td> <!-- Assuming DBP2 is added in the database -->
+                    <td>{{ record.hr2 }}</td> <!-- Assuming HR2 is added in the database -->
+                    <td>{{ record.sbp3 }}</td> <!-- Assuming SBP3 is added in the database -->
+                    <td>{{ record.dbp3 }}</td> <!-- Assuming DBP3 is added in the database -->
+                    <td>{{ record.hr3 }}</td> <!-- Assuming HR3 is added in the database -->
+                    <td>{{ record.prob }}</td>
+                    <td>{{ record.label }}</td>
+                    <td>{{ record.prob_ }}</td>
+                    <td>{{ record.label_ }}</td>
+                    <td>{{ record.created_date }}</td>
+                    <td>
+                        <a href="{{ url_for('delete_record', mid=record.id) }}" onclick="return confirm('Do you want to permanently delete this record?');" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="container-fluid action-buttons">
+        <button class="btn btn-dark" style="background-color: #545455;">
+            <a href="{{ url_for('delete_all') }}" onclick="return confirm('Do you want to permanently delete all records?');">Delete All</a>
+        </button>
+        <button class="btn btn-dark" style="background-color: #545455;">
+            <a href="{{ url_for('exportexcel') }}" onclick="return confirm('Save file to excel?');">Save as Excel</a>
+        </button>
+    </div>
+  </body>
+</html>

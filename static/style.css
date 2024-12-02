@@ -1,0 +1,22 @@
+h2 {
+  color: red;
+}
+body {
+	padding:0;
+	margin:0;
+	margin:0 auto;
+	background-color:#069;
+	width:80%;
+	height:800px;
+	border:1px solid #F00;
+	}
+	    <style type="text/css">
+        body {
+            padding:0;
+            margin:0;
+            margin:0 auto;
+            background-color:#F5F7FA;
+            width:90%;
+            height:800px;
+        }
+    </style>
